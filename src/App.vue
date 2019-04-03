@@ -15,7 +15,7 @@
         <el-dialog class="register" title="住院药房管理子系统登录" :visible.sync="dialogVisible"
                    center append-to-body lock-scroll width=500px :show-close=false :close-on-press-escape=false
                    :close-on-click-modal=false>
-            <Login v-on:changeDialogVisible="changeDialogVisible"/>
+            <Login v-on:loginSuccess="loginSuccess"/>
         </el-dialog>
     </div>
 </template>
@@ -26,14 +26,16 @@ import Login from './components/Login'
 export default {
   data () {
     return {
-      dialogVisible: true
+      dialogVisible: true,
+      userName: ''
     }
   },
   components: {Login},
   name: 'App',
   methods: {
-    changeDialogVisible: function (childValue) { // 监听下级组件
-      this.dialogVisible = childValue
+    loginSuccess: function (arg) { // 监听下级组件
+      this.dialogVisible = arg.dialogVisible
+      this.userName = arg.userName
     }
   }
 }

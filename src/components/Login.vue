@@ -23,7 +23,6 @@
 
 <script>
 import md5 from 'js-md5' // 引用md5加密
-
 export default {
   name: 'Login',
   data () {
@@ -48,14 +47,19 @@ export default {
   methods: {
     // 登录
     login: function () {
-      return this.axios.post('/account/login', {
+      let _this = this
+      return this.$axios.post('/account/login', {
         account: this.loginForm.account,
         encryptPassword: this.encrypt(this.loginForm.checkPass)
       })
         .then(function (response) {
           console.log(response)
-          if (response !== 'failure') { // 登录成功关闭模态窗口
-            this.$emit('changeDialogVisible', false)// 向上级组件发送数据
+          if (response.data.status === 'success') { // 登录成功关闭模态窗口
+            let arg = {
+              dialogVisible: false,
+              userName: response.data.name
+            }
+            _this.$emit('loginSuccess', arg)// 向上级组件发送数据
           }
         })
         .catch(function (error) { // 登陆失败
