@@ -6,9 +6,17 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/iconfont.css'
+import moment from 'moment'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+// 绑定
+Object.defineProperty(Vue.prototype, '$moment', { value: moment })
+// Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(VueAxios, axios)
 
 /* eslint-disable no-new */
 new Vue({

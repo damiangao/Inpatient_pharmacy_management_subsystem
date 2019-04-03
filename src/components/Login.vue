@@ -1,23 +1,28 @@
 <template>
 
-  <el-form :model="loginForm" :rules="rules2" ref="loginForm" label-position="left" label-width="0px"
-           class="demo-ruleForm login-container">
-    <el-form-item prop="account" class="item">
-      <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="账号" prefix-icon="el-icon-third-ziyuan23">
-      </el-input>
-    </el-form-item>
-    <el-form-item prop="checkPass" class="item">
-      <el-input type="password" v-model="loginForm.checkPass" auto-complete="off" placeholder="密码" prefix-icon="el-icon-third-ziyuan37">
-      </el-input>
-    </el-form-item>
-    <el-form-item style="width:100%;" class="submit">
-      <el-button class="button" type="primary" style="width:100%;" @click.native.prevent="printInput" :loading="logining">登录
-      </el-button>
-    </el-form-item>
-  </el-form>
+    <el-form :model="loginForm" :rules="rules2" class="demo-ruleForm login-container" label-position="left"
+             label-width="0px"
+             ref="loginForm">
+        <el-form-item class="item" prop="account">
+            <el-input auto-complete="off" placeholder="账号" prefix-icon="el-icon-third-ziyuan23" type="text"
+                      v-model="loginForm.account">
+            </el-input>
+        </el-form-item>
+        <el-form-item class="item" prop="checkPass">
+            <el-input auto-complete="off" placeholder="密码" prefix-icon="el-icon-third-ziyuan37" type="password"
+                      v-model="loginForm.checkPass">
+            </el-input>
+        </el-form-item>
+        <el-form-item class="submit" style="width:100%;">
+            <el-button :loading="logining" @click.native.prevent="login" class="button" style="width:100%;"
+                       type="primary">登录
+            </el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
+import md5 from 'js-md5' // 引用md5加密
 
 export default {
   name: 'Login',
@@ -28,62 +33,77 @@ export default {
         account: '',
         checkPass: ''
       },
+      // 输入规则
       rules2: {
         account: [
           {required: true, message: '请输入账号', trigger: 'blur'}
-          // { validator: validaePass }
         ],
         checkPass: [
           {required: true, message: '请输入密码', trigger: 'blur'}
-          // { validator: validaePass2 }
         ]
       },
       checked: true
     }
   },
   methods: {
-    // handleReset2 () {
-    //   this.$refs.loginForm.resetFields()
-    // },
-    // handleSubmit2 (ev) {
-    //   var _this = this
-    //   this.$refs.loginForm.validate((valid) => {
-    //
-    //   })
-    // },
-    printInput () {
+    // 登录
+    login: function () {
+      return this.axios.post('/account/login', {
+        account: this.loginForm.account,
+        encryptPassword: this.encrypt(this.loginForm.checkPass)
+      })
+        .then(function (response) {
+          console.log(response)
+          if (response !== 'failure') { // 登录成功关闭模态窗口
+            this.$emit('changeDialogVisible', false)// 向上级组件发送数据
+          }
+        })
+        .catch(function (error) { // 登陆失败
+          console.log(error)
+        })
+    },
+    printInput: function () {
       console.log(this.loginForm.account + '\n' + this.loginForm.checkPass)
+    },
+    encrypt (password) {
+      return md5(password)
     }
+    // cancle: function () {
+    //   this.$emit('loginState', false)// 向上级组件发送数据
+    // }
   }
 }
 
 </script>
 <style>
-  .login-container {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: auto;
-    width: 350px;
-    padding: 15px 0px;
-    background: #fff;
-    /*border: 1px solid #eaeaea;*/
-    /*box-shadow: 0 0 25px #cac6c6;*/
-  }
-  .title {
-    margin: 0px auto 40px auto;
-    text-align: center;
-    color: #505458;
-  }
-.submit{
-  margin-top: 50px;
-}
-.button{
-  font-size: large;
-}
+    .login-container {
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        background-clip: padding-box;
+        margin: auto;
+        width: 350px;
+        padding: 15px 0px;
+        background: #fff;
+        /*border: 1px solid #eaeaea;*/
+        /*box-shadow: 0 0 25px #cac6c6;*/
+    }
 
-  .remember {
-    margin: 0px 0px 35px 0px;
-  }
+    .title {
+        margin: 0px auto 40px auto;
+        text-align: center;
+        color: #505458;
+    }
+
+    .submit {
+        margin-top: 50px;
+    }
+
+    .button {
+        font-size: large;
+    }
+
+    .remember {
+        margin: 0px 0px 35px 0px;
+    }
 </style>
