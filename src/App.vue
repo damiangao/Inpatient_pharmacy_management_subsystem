@@ -1,12 +1,14 @@
 <template>
     <div id="app">
         <el-container>
-            <el-header>Header</el-header>
+            <Header :input-name="userName"/>
             <el-container>
-                <el-aside width="300px">Aside</el-aside>
+                <Aside/>
                 <el-main>
                     <transition name="fade" mode="out-in">
+<!--************************ROUTER************************-->
                         <router-view/>
+<!--******************************************************-->
                     </transition>
                 </el-main>
             </el-container>
@@ -15,27 +17,32 @@
         <el-dialog class="register" title="住院药房管理子系统登录" :visible.sync="dialogVisible"
                    center append-to-body lock-scroll width=500px :show-close=false :close-on-press-escape=false
                    :close-on-click-modal=false>
+<!--************监听loginSuccess信号，响应函数，也可以不同名***-->
             <Login v-on:loginSuccess="loginSuccess"/>
+<!--********************************************************-->
         </el-dialog>
     </div>
 </template>
 
 <script>
 import Login from './components/Login'
+import Header from './components/Header'
+import Aside from './components/Aside'
 
 export default {
   data () {
     return {
-      dialogVisible: true,
-      userName: ''
+      dialogVisible: true, // 登录框显示
+      userName: ''// 登陆成功的用户名
     }
   },
-  components: {Login},
+  components: {Aside, Header, Login},
   name: 'App',
   methods: {
-    loginSuccess: function (arg) { // 监听下级组件
-      this.dialogVisible = arg.dialogVisible
-      this.userName = arg.userName
+    loginSuccess: function (args) { // 由下级组件传递的参数
+      this.dialogVisible = args.dialogVisible
+      this.userName = args.userName
+      console.log('loginSuccess')
     }
   }
 }

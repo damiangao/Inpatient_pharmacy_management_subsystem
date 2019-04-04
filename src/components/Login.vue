@@ -14,7 +14,7 @@
             </el-input>
         </el-form-item>
         <el-form-item class="submit" style="width:100%;">
-            <el-button :loading="logining" @click.native.prevent="login" class="button" style="width:100%;"
+            <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"
                        type="primary">登录
             </el-button>
         </el-form-item>
@@ -71,10 +71,18 @@ export default {
     },
     encrypt (password) {
       return md5(password)
+    },
+    cancel: function () {
+      let _this = this
+
+      let args = {
+        dialogVisible: false,
+        userName: 'admin'
+      }
+      _this.$emit('loginSuccess', args)// 向上级组件发送数据
+
+      console.log('cancel')
     }
-    // cancle: function () {
-    //   this.$emit('loginState', false)// 向上级组件发送数据
-    // }
   }
 }
 

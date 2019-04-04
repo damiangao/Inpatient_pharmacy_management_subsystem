@@ -10,20 +10,16 @@ import moment from 'moment'
 import axios from 'axios'
 import qs from 'qs'
 
-// import VueAxios from 'vue-axios'
-
 // 绑定
 Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-// Vue.use(VueAxios, axios)
-// axios.defaults.baseURL = 'https://api.example.com';
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // 添加请求拦截器
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use(function (config) { // 更改axios编码格式
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
