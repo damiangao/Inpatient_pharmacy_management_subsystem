@@ -5,8 +5,8 @@
                 <template slot="title"><i class="el-icon-message"></i>导航一</template>
                 <el-menu-item-group>
                     <template slot="title">分组一</template>
-                    <el-menu-item index="1-1"><router-link to="/test1">test1</router-link></el-menu-item>
-                    <el-menu-item index="1-2"><router-link to="/test2">test2</router-link></el-menu-item>
+                    <router-link to="/test1"><el-menu-item index="1-1">test1</el-menu-item></router-link>
+                    <router-link to="/test2"><el-menu-item index="1-2">test2</el-menu-item></router-link>
                 </el-menu-item-group>
                 <el-menu-item-group title="分组2">
                     <el-menu-item index="1-3">选项3</el-menu-item>
