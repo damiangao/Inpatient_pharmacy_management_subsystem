@@ -1,5 +1,5 @@
 <template>
-<div></div>
+    <el-footer>Footer</el-footer>
 </template>
 
 <script>

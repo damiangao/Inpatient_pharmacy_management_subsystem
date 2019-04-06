@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/iconfont.css'
@@ -23,6 +24,9 @@ axios.interceptors.request.use(function (config) { // 更改axios编码格式
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
+  if (store.state.token) {
+    config.headers.common['Authentication-Token'] = store.state.token
+  }
   // 在发送请求之前做些什么
   return config
 }, function (error) {
@@ -31,6 +35,7 @@ axios.interceptors.request.use(function (config) { // 更改axios编码格式
 })
 
 // 添加响应拦截器
+axios.defaults.headers.common['Authentication-Token'] = store.state.token
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response
@@ -39,9 +44,27 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 /* eslint-disable no-new */
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    // 这里的requireAuth为路由中定义的 meta:{requireAuth:true}，意思为：表示进入该路由需要登陆
+    if (store.state.token) {
+      next()
+    } else {
+      next({
+        path: '/login'
+        // query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
+})
+
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

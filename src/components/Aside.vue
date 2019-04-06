@@ -7,6 +7,8 @@
                     <template slot="title">分组一</template>
                     <router-link to="/test1"><el-menu-item index="1-1">test1</el-menu-item></router-link>
                     <router-link to="/test2"><el-menu-item index="1-2">test2</el-menu-item></router-link>
+                    <router-link to="/helloworld"><el-menu-item index="1-3">helloworld</el-menu-item></router-link>
+
                 </el-menu-item-group>
                 <el-menu-item-group title="分组2">
                     <el-menu-item index="1-3">选项3</el-menu-item>
