@@ -129,7 +129,7 @@ export default {
     },
     searchItem () {
       this.isSearching = true
-      if (this.item.name === '123') { this.item.id = 456; this.item.price = 1 } else { this.item.id = 789; this.item.price = 3 }
+      if (this.item.name === '123') { this.item.id = 456; this.item.price = 1 } else { this.item.id = 789; this.item.price = 2 }
     }
   }
 }
