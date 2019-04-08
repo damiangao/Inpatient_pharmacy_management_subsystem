@@ -49,7 +49,8 @@ export default new Router({
         {
           path: '/outStock',
           name: 'OutStock',
-          component: OutStock
+          component: OutStock,
+          meta: {requireAuth: true}
         }
       ]
     }
