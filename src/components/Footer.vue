@@ -1,5 +1,5 @@
 <template>
-    <el-footer>Footer</el-footer>
+    <el-footer>住院药房管理子系统</el-footer>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
-  <el-form ref="form" :model="form" label-width="80px">
+  <el-form ref="form" :model="form" label-width="80px" :rules="rules">
     <el-col :span="12">
-      <el-form-item label="出库单位">
+      <el-form-item label="出库单位" prop="out">
         <el-input v-model="form.out"></el-input>
       </el-form-item>
     </el-col>
     <el-col :span="12">
-      <el-form-item label="入库单位">
+      <el-form-item label="入库单位" prop="in">
         <el-input v-model="form.in"></el-input>
       </el-form-item>
     </el-col>
@@ -17,7 +17,7 @@
     </el-col>
     <el-col :span="10">
       <el-form-item label="ID">
-        <el-input v-model="item.id"></el-input>
+        <el-input v-model="item.id" :disabled="found"></el-input>
       </el-form-item>
     </el-col>
     <el-col :span="4">
@@ -27,17 +27,17 @@
     </el-col>
     <el-col :span="6">
       <el-form-item label='数量'>
-        <el-input v-model="item.num"></el-input>
+        <el-input v-model.number="item.num"></el-input>
       </el-form-item>
     </el-col>
     <el-col :span="7">
       <el-form-item label='单价'>
-        <el-input v-model="item.price" :disabled="true"></el-input>
+        <el-input v-model.number="item.price" :disabled="found"></el-input>
       </el-form-item>
     </el-col>
     <el-col :span="7">
       <el-form-item label='总价'>
-        <el-input v-model="itemSum" :disabled="true"></el-input>
+        <el-input v-model.number="itemSum" :disabled="true"></el-input>
       </el-form-item>
     </el-col>
     <el-col :span="4">
@@ -57,13 +57,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-form-item></el-form-item>
     <el-form-item label="创建时间">
       <el-col :span="11">
-        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+        <el-date-picker placeholder="选择日期" v-model="form.date1" style="width: 100%;" prop="date1"></el-date-picker>
       </el-col>
       <el-col class="line" :span="2">-</el-col>
       <el-col :span="11">
-        <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+        <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;" prop="date2"></el-time-picker>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -79,6 +80,7 @@ export default {
   data () {
     return {
       isSearching: false,
+      found: true,
       form: {
         out: '',
         in: '',
@@ -92,7 +94,13 @@ export default {
         num: 0,
         price: 0
       },
-      itemList: []
+      itemList: [],
+      rules: {
+        out: [{required: true, message: '请输入出库单位', trigger: 'blur'}],
+        in: [{required: true, message: '请输入入库单位', trigger: 'blur'}],
+        date1: [{required: true, message: '请输入日期', trigger: 'change'}],
+        date2: [{required: true, message: '请输入时间', trigger: 'change'}]
+      }
     }
   },
   computed: {
@@ -102,7 +110,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.form.itemList = JSON.stringify(this.itemList)
+      // this.form.itemList = JSON.stringify(this.itemList)
       console.log(this.itemList)
       console.log(this.form)
     },
@@ -110,12 +118,9 @@ export default {
       this.itemList.splice(index, 1)
       console.log(index)
     },
-    addItem: function () {
+    addItem () {
       let titem = {}
-      titem.id = this.item.id
-      titem.name = this.item.name
-      titem.num = Number(this.item.num)
-      titem.price = Number(this.item.price)
+      titem.id = this.item.id; titem.name = this.item.name; titem.num = this.item.num; titem.price = this.item.price
       titem.sum = this.itemSum
       this.itemList.forEach(item => {
         if (item.id === titem.id) {
@@ -125,11 +130,22 @@ export default {
         }
       })
       if (titem) this.itemList.push(titem)
+      this.item.id = ''; this.item.name = ''; this.item.num = 0; this.item.price = 0
       console.log(titem)
     },
     searchItem () {
       this.isSearching = true
-      if (this.item.name === '123') { this.item.id = 456; this.item.price = 1 } else { this.item.id = 789; this.item.price = 3 }
+      if (this.item.name === '123') {
+        this.item.id = 456
+        this.item.price = 7
+        this.item.num = 0
+      } else {
+        this.item.id = '请手动输入'
+        this.item.price = 0
+        this.item.num = 0
+        this.found = false
+      }
+      this.isSearching = false
     }
   }
 }
