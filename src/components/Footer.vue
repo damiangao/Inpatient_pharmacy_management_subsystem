@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
-<div>住院药房管理子系统</div>
-=======
-    <el-footer>Footer</el-footer>
->>>>>>> origin/master
+    <el-footer>住院药房管理子系统</el-footer>
 </template>
 
 <script>
