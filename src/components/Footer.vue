@@ -1,5 +1,5 @@
 <template>
-<div></div>
+<div>住院药房管理子系统</div>
 </template>
 
 <script>
