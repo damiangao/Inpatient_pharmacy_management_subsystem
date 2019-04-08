@@ -3,6 +3,7 @@
     <el-form :model="loginForm" :rules="rules2" class="demo-ruleForm login-container" label-position="left"
              label-width="0px"
              ref="loginForm">
+        <h2>住院药房管理子系统登录</h2>
         <el-form-item class="item" prop="account">
             <el-input auto-complete="off" placeholder="账号" prefix-icon="el-icon-third-ziyuan23" type="text"
                       v-model="loginForm.account">
@@ -47,22 +48,28 @@ export default {
   methods: {
     // 登录
     login: function () {
-      let _this = this
       return this.$axios.post('/account/login', {
         account: this.loginForm.account,
         encryptPassword: this.encrypt(this.loginForm.checkPass)
       })
-        .then(function (response) {
-          console.log(response)
-          if (response.data.status === 'success') { // 登录成功关闭模态窗口
-            let arg = {
-              dialogVisible: false,
-              userName: response.data.name
+        .then(function (res) {
+          let data = res.data
+          if (data.status === 'success') { // 登录成功关闭模态窗口
+            this.$store.commit('set_token', data['Authentication-Token'])
+            this.$store.commit('set_name', data.name)
+
+            if (this.$store.state.token) {
+              this.$router.push('/home')
+            } else {
+              this.$router.replace('/login')
             }
-            _this.$emit('loginSuccess', arg)// 向上级组件发送数据
+            this.$message.success('登录成功')
+          } else if (data.status === 'fail') {
+            this.$message.fail('登录失败')
+            this.$router.replace('/login')
           }
         })
-        .catch(function (error) { // 登陆失败
+        .catch(function (error) {
           console.log(error)
         })
     },
@@ -73,32 +80,34 @@ export default {
       return md5(password)
     },
     cancel: function () {
-      let _this = this
-
-      let args = {
-        dialogVisible: false,
-        userName: 'admin'
+      this.$store.commit('set_token', 'nooooooob')
+      this.$store.commit('set_name', 'lyf')
+      if (this.$store.state.token) {
+        this.$router.push('/home')
+      } else {
+        this.$router.replace('/login')
       }
-      _this.$emit('loginSuccess', args)// 向上级组件发送数据
+      this.$message.success('登录成功')
 
-      console.log('cancel')
+      console.log('login')
     }
   }
 }
 
 </script>
 <style>
+
     .login-container {
         -webkit-border-radius: 5px;
         border-radius: 5px;
         -moz-border-radius: 5px;
         background-clip: padding-box;
-        margin: auto;
-        width: 350px;
-        padding: 15px 0px;
+        margin:70px auto;
+        width: 400px;
+        padding: 15px 50px;
         background: #fff;
-        /*border: 1px solid #eaeaea;*/
-        /*box-shadow: 0 0 25px #cac6c6;*/
+        border: 1px solid #eaeaea;
+        box-shadow: 0 0 25px #cac6c6;
     }
 
     .title {
@@ -119,3 +128,5 @@ export default {
         margin: 0px 0px 35px 0px;
     }
 </style>
+
+})

@@ -1,33 +1,34 @@
 <template>
-    <div id="app">
-        <router-view/>
-    </div>
+    <el-container direction="vertical">
+        <Header/>
+        <el-container>
+            <Aside/>
+            <el-main>
+                <transition mode="out-in" name="fade">
+                    <!--************************ROUTER************************-->
+                    <router-view/>
+                    <!--******************************************************-->
+                </transition>
+            </el-main>
+        </el-container>
+        <Footer/>
+    </el-container>
+
 </template>
 
 <script>
+import Header from './Header'
+import Aside from './Aside'
+import Footer from './Footer'
+
 export default {
-  data () {
-    return {}
-  },
-  components: {},
-  name: 'App',
+  name: 'Home',
+  components: {Header, Aside, Footer},
   methods: {}
 }
 </script>
 
-<style>
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-    }
-
-    .register:only-child {
-        min-width: 350px;
-    }
-
+<style scoped>
     .el-header, .el-footer {
         background-color: #B3C0D1;
         color: #333;
