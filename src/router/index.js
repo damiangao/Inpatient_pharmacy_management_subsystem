@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import TestPage1 from '@/components/TestPage1'
 import TestPage2 from '@/components/TestPage2'
+import OutStock from '@/components/OutStock'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 
@@ -44,6 +45,11 @@ export default new Router({
           name: 'TestPage2',
           component: TestPage2,
           meta: {requireAuth: true}
+        },
+        {
+          path: '/outStock',
+          name: 'OutStock',
+          component: OutStock
         }
       ]
     }
