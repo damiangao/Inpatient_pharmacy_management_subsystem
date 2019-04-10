@@ -1,6 +1,6 @@
 <template>
     <el-aside width="300px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1', '2']" router="true">
+        <el-menu :default-openeds="['1', '2']" router=true>
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-message"></i>测试页</template>
                 <el-menu-item-group>

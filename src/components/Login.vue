@@ -15,8 +15,13 @@
             </el-input>
         </el-form-item>
         <el-form-item class="submit" style="width:100%;">
+          <el-button :loading="logining" @click.native.prevent="login" class="button" style="width:100%;"
+                     type="primary">登录
+          </el-button>
+        </el-form-item>
+        <el-form-item class="submit" style="width:100%;">
             <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"
-                       type="primary">登录
+                       type="primary">登录_FAKE
             </el-button>
         </el-form-item>
     </el-form>
