@@ -6,6 +6,9 @@ import TestPage2 from '@/components/TestPage2'
 import OutStock from '@/components/OutStock'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
+import PageNotFound from '@/components/PageNotFound'
+import Main from '@/components/Main'
+import MedicationListManagement from '@/components/MedicationListManagement'
 
 Vue.use(Router)
 
@@ -29,6 +32,12 @@ export default new Router({
       meta: {requireAuth: true}, // 必须要登录才能跳转
       children: [
         {
+          path: '/main',
+          name: 'Main',
+          component: Main,
+          meta: {requireAuth: true}
+        },
+        {
           path: '/helloWorld',
           name: 'HelloWorld',
           component: HelloWorld,
@@ -51,8 +60,25 @@ export default new Router({
           name: 'OutStock',
           component: OutStock,
           meta: {requireAuth: true}
+        },
+        {
+          path: '/medicationListManagement',
+          name: 'MedicationListManagement',
+          component: MedicationListManagement,
+          meta: {requireAuth: true},
+          children: []
         }
+        /** **** 路由在这里加******/
+
+        /** **********************/
       ]
+    },
+    { path: '*',
+      name: 'PageNotFound',
+      component: PageNotFound,
+      meta: {
+        title: '404 页面未找到'
+      }
     }
   ]
 })

@@ -15,7 +15,7 @@
             </el-input>
         </el-form-item>
         <el-form-item class="submit" style="width:100%;">
-            <el-button :loading="logining" @click.native.prevent="login" class="button" style="width:100%;"
+            <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"
                        type="primary">登录
             </el-button>
         </el-form-item>
@@ -51,12 +51,14 @@ export default {
       return this.$axios.post('/account/login', {
         account: this.loginForm.account,
         encryptPassword: this.encrypt(this.loginForm.checkPass)
+        // encryptPassword: this.encrypt(this.loginForm.checkPass + this.$moment().format()) // 加了时间戳
+
       })
-        .then(function (res) {
+        .then((res) => {
           let data = res.data
           if (data.status === 'success') { // 登录成功关闭模态窗口
-            this.$store.commit('set_token', data['Authentication-Token'])
-            this.$store.commit('set_name', data.name)
+            this.$store.commit('set_token', data.data.token)
+            this.$store.commit('set_name', data.data.name)
 
             if (this.$store.state.token) {
               this.$router.push('/home')

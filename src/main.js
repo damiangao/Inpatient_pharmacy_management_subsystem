@@ -36,9 +36,20 @@ axios.interceptors.request.use(function (config) { // 更改axios编码格式
 
 // 添加响应拦截器
 axios.defaults.headers.common['Authentication-Token'] = store.state.token
-axios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (res) {
+  let state = res.data.state
+  if (state === 'fail') {
+    let errCode = res.data.data.errCode
+    let errMsg = res.data.data.errMsg
+    switch (errCode) {
+      case 20003:
+        this.$router.replace('/login')
+        break
+    }
+    this.$message.fail(errMsg)
+  }
   // 对响应数据做点什么
-  return response
+  return res
 }, function (error) {
   // 对响应错误做点什么
   return Promise.reject(error)
