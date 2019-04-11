@@ -1,6 +1,7 @@
 <template>
     <el-aside width="300px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1', '2','3']" router>
+        <el-menu :default-openeds="['1', '2']" router>
+
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-info"></i>基本信息维护</template>
                 <el-menu-item index="medicationListManagement">摆药单管理</el-menu-item>

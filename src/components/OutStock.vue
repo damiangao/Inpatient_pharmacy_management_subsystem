@@ -97,22 +97,35 @@ export default {
       itemList: [],
       rules: {
         out: [{required: true, message: '请输入出库单位', trigger: 'blur'}],
-        in: [{required: true, message: '请输入入库单位', trigger: 'blur'}],
-        date1: [{required: true, message: '请输入日期', trigger: 'change'}],
-        date2: [{required: true, message: '请输入时间', trigger: 'change'}]
+        in: [{required: true, message: '请输入入库单位', trigger: 'blur'}]
       }
     }
   },
   computed: {
     itemSum: function () {
       return this.item.price * this.item.num
+    },
+    date: function () {
+      let date = this.form.date1
+      date.setHours(this.form.date2.getHours())
+      date.setMinutes(this.form.date2.getMinutes())
+      date.setSeconds(this.form.date2.getSeconds())
+      return date
     }
   },
   methods: {
     onSubmit () {
-      // this.form.itemList = JSON.stringify(this.itemList)
-      console.log(this.itemList)
+      this.form.itemList = JSON.stringify(this.itemList)
+      this.form.date = this.date.toString()
       console.log(this.form)
+      this.$axios
+        .post('/outStock/itemList', this.form)
+        .then(res => {
+          if (res.data.status === 'success') {
+            console.log(res)
+          }
+        })
+        .catch(err => console.log(err))
     },
     onDelete (index) {
       this.itemList.splice(index, 1)
@@ -135,7 +148,23 @@ export default {
     },
     searchItem () {
       this.isSearching = true
-      if (this.item.name === '123') {
+      this.$axios
+        .post('/outStock/item', {name: this.item.name})
+        .then(res => {
+          let data = res.data
+          if (data.status === 'success') {
+            this.item.id = data.id
+            this.item.price = data.price
+            this.item.num = 0
+          } else {
+            this.item.id = '请手动输入'
+            this.item.price = 0
+            this.item.num = 0
+            this.found = false
+          }
+        })
+        .catch(err => console.log(err))
+      /* if (this.item.name === '123') {
         this.item.id = 456
         this.item.price = 7
         this.item.num = 0
@@ -144,7 +173,7 @@ export default {
         this.item.price = 0
         this.item.num = 0
         this.found = false
-      }
+      } */
       this.isSearching = false
     }
   }
