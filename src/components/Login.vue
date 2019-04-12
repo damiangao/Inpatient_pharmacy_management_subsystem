@@ -19,11 +19,11 @@
                      type="primary">登录
           </el-button>
         </el-form-item>
-<!--        <el-form-item class="submit" style="width:100%;">-->
-<!--            <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"-->
-<!--                       type="primary">登录_FAKE-->
-<!--            </el-button>-->
-<!--        </el-form-item>-->
+        <el-form-item class="submit" style="width:100%;">
+            <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"
+                       type="primary">登录_FAKE
+            </el-button>
+        </el-form-item>
     </el-form>
 </template>
 
@@ -72,7 +72,7 @@ export default {
             }
             this.$message.success('登录成功')
           } else if (data.status === 'fail') {
-            this.$message.fail('登录失败')
+            this.$message.error('登录失败')
             this.$router.replace('/login')
           }
         })

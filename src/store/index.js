@@ -8,7 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     name: '',
-    token: ''
+    token: '',
+    currentMedicationID: '',
+    medCurrentPage: 'list'
   },
   mutations: {
     set_token (state, token) {
@@ -26,6 +28,18 @@ export default new Vuex.Store({
     del_name (state) {
       state.name = ''
       console.log('state.name:' + state.name)
+    },
+    set_currentMedicationID (state, ID) {
+      state.currentMedicationID = ID
+      console.log('state.token:' + state.currentMedicationID)
+    },
+    del_currentMedicationID (state) {
+      state.currentMedicationID = ''
+      console.log('state.token:' + state.currentMedicationID)
+    },
+    set_medCurrentPage (state, page) {
+      state.medCurrentPage = page
+      console.log('state.medCurrentPage:' + state.medCurrentPage)
     }
   }
 })

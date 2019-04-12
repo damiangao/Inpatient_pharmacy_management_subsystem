@@ -5,33 +5,6 @@
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-info"></i>基本信息维护</template>
                 <el-menu-item index="medicationListManagement">摆药单管理</el-menu-item>
-                <!--                    <template slot="title"><i class="el-icon-tickets"></i>摆药单管理</template>-->
-
-                <!--                <el-menu-item-group>-->
-                <!--                    <template slot="title">分组一</template>-->
-                <!--                    <el-menu-item index="test1">test1</el-menu-item>-->
-                <!--                    <el-menu-item index="test2">test2</el-menu-item>-->
-                <!--                    <el-menu-item index="helloworld">helloworld</el-menu-item>-->
-                <!--                </el-menu-item-group>-->
-                <!--                <el-menu-item-group title="分组2">-->
-                <!--                    <el-menu-item index="test1">test1</el-menu-item>-->
-                <!--                    <el-menu-item index="test2" route="test2">test2</el-menu-item>-->
-                <!--                    <el-menu-item index="helloworld">helloworld</el-menu-item>-->
-                <!--                </el-menu-item-group>-->
-                <!--            </el-submenu>-->
-                <!--            <el-submenu index="1">-->
-                <!--                <template slot="title"><i class="el-icon-message"></i>测试页</template>-->
-                <!--                <el-menu-item-group>-->
-                <!--                    <template slot="title">分组一</template>-->
-                <!--                    <el-menu-item index="test1">test1</el-menu-item>-->
-                <!--                    <el-menu-item index="test2">test2</el-menu-item>-->
-                <!--                    <el-menu-item index="helloworld">helloworld</el-menu-item>-->
-                <!--                </el-menu-item-group>-->
-                <!--                <el-menu-item-group title="分组2">-->
-                <!--                    <el-menu-item index="test1">test1</el-menu-item>-->
-                <!--                    <el-menu-item index="test2" route="test2">test2</el-menu-item>-->
-                <!--                    <el-menu-item index="helloworld">helloworld</el-menu-item>-->
-                <!--                </el-menu-item-group>-->
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title"><i class="el-icon-menu"></i>系统</template>

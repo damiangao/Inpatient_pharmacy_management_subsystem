@@ -3,7 +3,7 @@
         <Header/>
         <el-container>
             <Aside/>
-            <el-main>
+            <el-main class="main">
                 <transition mode="out-in" name="fade">
                     <!--************************ROUTER************************-->
                     <router-view/>
@@ -60,5 +60,8 @@ export default {
 
     .el-container:nth-child(7) .el-aside {
         line-height: 320px;
+    }
+    .main{
+        min-height: 700px;
     }
 </style>

@@ -16,6 +16,7 @@ Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 
 Vue.config.productionTip = false
+Vue.config.devtools = true
 Vue.use(ElementUI)
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -37,7 +38,7 @@ axios.interceptors.request.use(function (config) { // 更改axios编码格式
 // 添加响应拦截器
 axios.defaults.headers.common['Authentication-Token'] = store.state.token
 axios.interceptors.response.use(function (res) {
-  let state = res.data.state
+  let state = res.data.status
   if (state === 'fail') {
     let errCode = res.data.data.errCode
     let errMsg = res.data.data.errMsg
@@ -64,7 +65,6 @@ router.beforeEach((to, from, next) => {
     } else {
       next({
         path: '/login'
-        // query: {redirect: to.fullPath}
       })
     }
   } else {
