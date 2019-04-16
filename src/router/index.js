@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import TestPage1 from '@/components/TestPage1'
-import TestPage2 from '@/components/TestPage2'
 import OutStock from '@/components/OutStock'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import PageNotFound from '@/components/PageNotFound'
 import Main from '@/components/Main'
 import MedicationListManagement from '@/components/MedicationListManagement'
+import CollectTag from '../components/CollectTag'
+import ConfirmReturnDrug from '../components/ConfirmReturnDrug'
+import ReturnDrug from '../components/ReturnDrug'
 
 Vue.use(Router)
 
@@ -44,18 +45,6 @@ export default new Router({
           meta: {requireAuth: true}
         },
         {
-          path: '/test1',
-          name: 'TestPage1',
-          component: TestPage1,
-          meta: {requireAuth: true}
-        },
-        {
-          path: '/test2',
-          name: 'TestPage2',
-          component: TestPage2,
-          meta: {requireAuth: true}
-        },
-        {
           path: '/outStock',
           name: 'OutStock',
           component: OutStock,
@@ -67,9 +56,26 @@ export default new Router({
           component: MedicationListManagement,
           meta: {requireAuth: true},
           children: []
-        }
+        },
         /** **** 路由在这里加******/
-
+        {
+          path: '/collectTag',
+          name: 'CollectTag',
+          component: CollectTag,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/confirmReturnDrug',
+          name: 'ConfirmReturnDrug',
+          component: ConfirmReturnDrug,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/returnDrug',
+          name: 'ReturnDrug',
+          component: ReturnDrug,
+          meta: {requireAuth: true}
+        }
         /** **********************/
       ]
     },

@@ -4,7 +4,7 @@
       <el-button type="primary" round @click="collect">采集配置数据</el-button>
       <el-button type="primary" round @click="confirm1">摆药核准确认</el-button>
     </div>
-    <div style="margin-top: 0px;">医嘱药品信息
+    <div style="margin-top: 0;">医嘱药品信息
       <el-table
         :data="tables1"
         height="300px"
@@ -30,7 +30,7 @@
       </el-table>
 
     </div>
-    <div style="margin-top: 0px">摆药单
+    <div style="margin-top: 0">摆药单
       <el-table
         :data="tables3"
         height="300px"

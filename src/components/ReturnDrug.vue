@@ -8,7 +8,7 @@
         </el-form-item>
       </el-col>
       <h2>药品信息</h2>
-      <div style="margin-top: 0px;">
+      <div style="margin-top: 0;">
       </div>
       <el-col :span="12">
         <el-form-item label="药品ID" prop="in">
@@ -68,10 +68,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '确认成功!'
-        })
+        this.$router.push('/ConfirmReturnDrug')
       }).catch(() => {
         this.$message({
           type: 'info',

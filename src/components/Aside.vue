@@ -13,6 +13,8 @@
                     <template slot="title">药品调拨</template>
                     <el-menu-item index="outStock">出库</el-menu-item>
                 </el-menu-item-group>
+              <el-menu-item index="collectTag">采集配置</el-menu-item>
+              <el-menu-item index="returnDrug">退药申请</el-menu-item>
                 <el-menu-item-group title="分组2">
                     <el-menu-item index="2-3">选项3</el-menu-item>
                 </el-menu-item-group>
