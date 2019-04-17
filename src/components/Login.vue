@@ -6,22 +6,21 @@
         <h2>住院药房管理子系统登录</h2>
         <el-form-item class="item" prop="account">
             <el-input auto-complete="off" placeholder="账号" prefix-icon="el-icon-third-ziyuan23" type="text"
-                      v-model="loginForm.account">
+                      v-model="loginForm.account" @keyup.enter.native.prevent="login" >
             </el-input>
         </el-form-item>
         <el-form-item class="item" prop="checkPass">
             <el-input auto-complete="off" placeholder="密码" prefix-icon="el-icon-third-ziyuan37" type="password"
-                      v-model="loginForm.checkPass">
+                      v-model="loginForm.checkPass" @keyup.enter.native.prevent="login" >
             </el-input>
         </el-form-item>
         <el-form-item class="submit" style="width:100%;">
-          <el-button :loading="logining" @click.native.prevent="login" class="button" style="width:100%;"
-                     type="primary">登录
-          </el-button>
+          <el-button :loading="logining" @click.native.prevent="login"
+                     class="button" style="width:100%;" type="primary">登录</el-button>
         </el-form-item>
         <el-form-item class="submit" style="width:100%;">
-            <el-button :loading="logining" @click.native.prevent="cancel" class="button" style="width:100%;"
-                       type="primary">登录_FAKE
+            <el-button :loading="logining" @click.native.prevent="cancel"
+                       class="button" style="width:100%;" type="primary">登录_FAKE
             </el-button>
         </el-form-item>
     </el-form>
@@ -41,10 +40,10 @@ export default {
       // 输入规则
       rules2: {
         account: [
-          {required: true, message: '请输入账号', trigger: 'blur'}
+          {required: true, message: '请输入账号', trigger: ['blur', 'change']}
         ],
         checkPass: [
-          {required: true, message: '请输入密码', trigger: 'blur'}
+          {required: true, message: '请输入密码', trigger: ['blur', 'change']}
         ]
       },
       checked: true
@@ -53,32 +52,38 @@ export default {
   methods: {
     // 登录
     login: function () {
-      return this.$axios.post('/account/login', {
-        account: this.loginForm.account,
-        encryptPassword: this.encrypt(this.loginForm.checkPass)
-        // encryptPassword: this.encrypt(this.loginForm.checkPass + this.$moment().format()) // 加了时间戳
+      this.$refs.loginForm.validate()
+        .then(() => {
+          this.logining = true
+          return this.$axios.post('/account/login', {
+            account: this.loginForm.account,
+            encryptPassword: this.encrypt(this.loginForm.checkPass)
+            // encryptPassword: this.encrypt(this.loginForm.checkPass + this.$moment().format()) // 加了时间戳
 
-      })
-        .then((res) => {
-          let data = res.data
-          if (data.status === 'success') { // 登录成功关闭模态窗口
-            this.$store.commit('set_token', data.data.token)
-            this.$store.commit('set_name', data.data.name)
+          })
+            .then((res) => {
+              let data = res.data
+              if (data.status === 'success') { // 登录成功关闭模态窗口
+                this.$store.commit('set_token', data.data.token)
+                this.$store.commit('set_name', data.data.name)
 
-            if (this.$store.state.token) {
-              this.$router.push('/home')
-            } else {
-              this.$router.replace('/login')
-            }
-            this.$message.success('登录成功')
-          } else if (data.status === 'fail') {
-            this.$message.error('登录失败')
-            this.$router.replace('/login')
-          }
+                if (this.$store.state.token) {
+                  this.$router.push('/home')
+                } else {
+                  this.$router.replace('/login')
+                }
+                this.$message.success('登录成功')
+              } else if (data.status === 'fail') {
+                this.$message.error('登录失败')
+                this.$router.replace('/login')
+              }
+              this.logining = false
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         })
-        .catch(function (error) {
-          console.log(error)
-        })
+        .catch(err => console.log(err))
     },
     printInput: function () {
       console.log(this.loginForm.account + '\n' + this.loginForm.checkPass)
@@ -89,6 +94,8 @@ export default {
     cancel: function () {
       this.$store.commit('set_token', 'nooooooob')
       this.$store.commit('set_name', 'lyf')
+      this.$store.commit('set_userDept', 'nothing')
+      this.$store.commit('set_userDeptID', '114514')
       if (this.$store.state.token) {
         this.$router.push('/home')
       } else {

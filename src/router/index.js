@@ -7,9 +7,9 @@ import Home from '@/components/Home'
 import PageNotFound from '@/components/PageNotFound'
 import Main from '@/components/Main'
 import MedicationListManagement from '@/components/MedicationListManagement'
-import CollectTag from '../components/CollectTag'
-import ConfirmReturnDrug from '../components/ConfirmReturnDrug'
-import ReturnDrug from '../components/ReturnDrug'
+import CollectTag from '@/components/CollectTag'
+import ConfirmReturnDrug from '@/components/ConfirmReturnDrug'
+import ReturnDrug from '@/components/ReturnDrug'
 
 Vue.use(Router)
 

@@ -29,6 +29,14 @@ export default new Vuex.Store({
       state.name = ''
       console.log('state.name:' + state.name)
     },
+    set_userDept (state, name) {
+      state.userDept = name
+      console.log('state.userDept:' + state.userDept)
+    },
+    set_userDeptID (state, name) {
+      state.userDeptID = name
+      console.log('state.userDept:' + state.userDeptID)
+    },
     set_currentMedicationID (state, ID) {
       state.currentMedicationID = ID
       console.log('state.token:' + state.currentMedicationID)
