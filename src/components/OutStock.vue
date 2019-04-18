@@ -27,7 +27,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="药品名称">
+          <el-form-item label="药品名称" prop="name">
             <el-input v-model="item.name" disabled></el-input>
           </el-form-item>
         </el-col>
@@ -89,7 +89,7 @@ export default {
     let validate = (rule, value, callback) => {
       if (value > this.item.left) {
         callback(new Error('数量过多'))
-      } else if (value < 0) {
+      } else if (value <= 0) {
         callback(new Error(('数量过少')))
       } else {
         callback()
@@ -116,7 +116,8 @@ export default {
         out: [{required: true, message: '请输入出库单位', trigger: 'blur'}],
         in: [{required: true, message: '请输入入库单位', trigger: 'blur'}],
         id: [{required: true, message: '请输入药品ID', trigger: 'blur'}],
-        num: [{required: true, validator: validate, trigger: 'change'}]
+        num: [{required: true, validator: validate, trigger: 'change'}],
+        name: [{required: true, message: '请先查询'}]
       }
     }
   },
@@ -158,6 +159,11 @@ export default {
           }
           this.itemList.forEach(item => {
             if (item.id === titem.id) {
+              if (item.num + titem.num > this.item.left) {
+                this.$message.error('已添加数量过多')
+                this.item = {id: '', name: '', num: 0, price: 0, left: 0}
+                titem = null
+              }
               item.num += titem.num
               item.sum += titem.sum
               titem = null
@@ -170,8 +176,6 @@ export default {
         .catch(err => console.log(err))
     },
     searchItem () {
-      console.log(this.inList)
-      console.log(this.outDept)
       this.isSearching = true
       this.$axios
         .get('/drug/get', {params: {id: this.item.id}})
@@ -180,15 +184,16 @@ export default {
           if (data.status === 'success') {
             this.item.name = data.data.name
             this.item.price = data.data.price
-            this.item.left = data.data.left
+            this.item.left = data.data.stock
             this.item.num = 0
-          } else {
+          } else if (data.status === 'fail') {
+            this.$message.error(data.data.errMsg)
             this.item.id = ''
             this.item.price = 0
             this.item.num = 0
           }
         })
-        .catch(err => this.$message.error(err))
+        .catch(err => console.log(err))
       /* if (this.item.name === '123') {
         this.item.id = 456
         this.item.price = 7
@@ -203,8 +208,6 @@ export default {
     }
   },
   created: function () {
-    console.log(this.inList)
-    console.log(this.outDept)
     this.$axios
       .get('/stockout/deptlist')
       .then((res) => { this.inList = res.data.data })
@@ -213,8 +216,6 @@ export default {
       .get('/stockout/deptlist')
       .then((res) => { this.outDept = res.data.data })
       .catch(err => console.log(err))
-    console.log(this.inList)
-    console.log(this.outDept)
   }
 }
 </script>

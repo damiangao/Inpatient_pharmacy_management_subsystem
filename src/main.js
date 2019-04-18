@@ -19,6 +19,11 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 Vue.use(ElementUI)
 
+if (process.env.NODE_ENV === 'development') {
+  axios.defaults.baseURL = 'http://172.6.5.107:8090'
+}
+console.log(process.env.NODE_ENV)
+
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) { // 更改axios编码格式
@@ -47,7 +52,7 @@ axios.interceptors.response.use(function (res) {
         this.$router.replace('/login')
         break
     }
-    this.$message.fail(errMsg)
+    Vue.prototype.$message.error(errMsg + 'from:prototype')
   }
   // 对响应数据做点什么
   return res
