@@ -46,13 +46,13 @@ axios.interceptors.response.use(function (res) {
   let state = res.data.status
   if (state === 'fail') {
     let errCode = res.data.data.errCode
-    let errMsg = res.data.data.errMsg
+    // let errMsg = res.data.data.errMsg
     switch (errCode) {
       case 20003:
         this.$router.replace('/login')
         break
     }
-    Vue.prototype.$message.error(errMsg + 'from:prototype')
+    // Vue.prototype.$message.error(errMsg + 'from:prototype')
   }
   // 对响应数据做点什么
   return res

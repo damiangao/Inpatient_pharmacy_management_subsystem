@@ -58,7 +58,7 @@
         </el-col>
         <el-col :span="4">
           <el-form-item>
-            <el-button @click="addItem">添加</el-button>
+            <el-button @click="addItem" type="primary">添加</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -192,8 +192,12 @@ export default {
             this.item.price = 0
             this.item.num = 0
           }
+          this.isSearching = false
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          this.isSearching = false
+        })
       /* if (this.item.name === '123') {
         this.item.id = 456
         this.item.price = 7
@@ -204,7 +208,6 @@ export default {
         this.item.num = 0
         this.found = false
       } */
-      this.isSearching = false
     }
   },
   created: function () {

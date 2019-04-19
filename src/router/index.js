@@ -10,6 +10,7 @@ import MedicationListManagement from '@/components/MedicationListManagement'
 import CollectTag from '@/components/CollectTag'
 import ConfirmReturnDrug from '@/components/ConfirmReturnDrug'
 import ReturnDrug from '@/components/ReturnDrug'
+import InStock from '@/components/InStock'
 
 Vue.use(Router)
 
@@ -48,6 +49,12 @@ export default new Router({
           path: '/outStock',
           name: 'OutStock',
           component: OutStock,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/inStock',
+          name: 'InStock',
+          component: InStock,
           meta: {requireAuth: true}
         },
         {
