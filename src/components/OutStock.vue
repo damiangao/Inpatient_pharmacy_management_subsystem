@@ -106,8 +106,8 @@ export default {
         name: '',
         id: '',
         num: 0,
-        price: 2,
-        left: 5
+        price: 0,
+        left: 0
       },
       itemList: [],
       inList: [{name: 'qwe', deptId: 123}, {name: 'asd', deptId: 456}, {name: 'zxc', deptId: 789}],
@@ -116,8 +116,8 @@ export default {
         out: [{required: true, message: '请输入出库单位', trigger: 'blur'}],
         in: [{required: true, message: '请输入入库单位', trigger: 'blur'}],
         id: [{required: true, message: '请输入药品ID', trigger: 'blur'}],
-        num: [{required: true, validator: validate, trigger: 'change'}],
-        name: [{required: true, message: '请先查询'}]
+        num: [{required: true, validator: validate, trigger: 'blur'}],
+        name: [{required: true, message: '请先查询', trigger: 'blur'}]
       }
     }
   },
@@ -171,7 +171,6 @@ export default {
           })
           if (titem) this.itemList.push(titem)
           this.item = {id: '', name: '', num: 0, price: 0, left: 0}
-          console.log(titem)
         })
         .catch(err => console.log(err))
     },

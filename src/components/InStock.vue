@@ -58,7 +58,7 @@
             <el-input v-model.number="nfound.num"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+       <el-col :span="6">
           <el-form-item label="计量单位">
             <el-input v-model="nfound.unit"></el-input>
           </el-form-item>
@@ -78,12 +78,16 @@
             <el-input v-model.number="nfound.piority"></el-input>
           </el-form-item>
         </el-col>
-        <el-form-item label="描述">
-          <el-input type="textarea" :rows="4" v-model="nfound.desc"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="submitItem" type="primary">添加</el-button>
-        </el-form-item>
+        <el-col>
+          <el-form-item label="描述">
+            <el-input type="textarea" :rows="4" v-model="nfound.desc"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-button @click="submitItem" type="primary">添加</el-button>
+          </el-form-item>
+        </el-col>
       </el-form>
       <el-table :data="itemList" style="width: 100%" header-cell-class-name="cell" class="el-form-item">
         <el-table-column prop="name" label="药品名称"></el-table-column>
@@ -183,15 +187,39 @@ export default {
         })
         .catch(err => console.log(err))
     },
-    submitItem () {
+    submit () {
       this.$refs.nfound.validate()
         .then(() => {
           this.nfound.id = this.id
           this.$axios.post('/drug/add', this.nfound)
             .then(res => {
               this.$message.success(res.data.data)
+              let titem = {
+                id: this.id,
+                name: this.nfound.name,
+                num: this.nfound.num,
+                price: this.nfound.price
+              }
+              this.itemList.forEach(item => {
+                if (item.id === titem.id) {
+                  item.num += titem.num
+                  item.sum += titem.sum
+                  titem = null
+                }
+              })
+              if (titem) this.itemList.push(titem)
+              this.id = ''
+              this.nfound = {num: 0, name: '', unit: '', price: 0, piority: 0, desc: ''}
+              this.stat = 'home'
+              console.log(titem)
             })
             .catch(err => console.log(err))
+        })
+    },
+    submitItem () {
+      this.$refs.nfound.validate()
+        .then(() => this.$axios.post('/drug/add', this.nfound))
+        .then(() => {
           let titem = {
             id: this.id,
             name: this.nfound.name,
@@ -211,6 +239,7 @@ export default {
           this.stat = 'home'
           console.log(titem)
         })
+        .catch(err => console.log(err))
     },
     onSubmit () {}
   },
