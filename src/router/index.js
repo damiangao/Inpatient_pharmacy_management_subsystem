@@ -11,6 +11,9 @@ import CollectTag from '@/components/CollectTag'
 import ConfirmReturnDrug from '@/components/ConfirmReturnDrug'
 import ReturnDrug from '@/components/ReturnDrug'
 import InStock from '@/components/InStock'
+import AllocateCtrl from '@/components/AllocateCtrl'
+import ApplyMedicine from '@/components/ApplyMedicine'
+import ReturnMedicine from '@/components/ReturnMedicine'
 
 Vue.use(Router)
 
@@ -81,6 +84,24 @@ export default new Router({
           path: '/returnDrug',
           name: 'ReturnDrug',
           component: ReturnDrug,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/allocateCtrl',
+          name: '调拨控制',
+          component: AllocateCtrl,
+          meta: {requireAuth: true},
+        },
+        {
+          path: '/applyMedicine',
+          name: '申请领药',
+          component: ApplyMedicine,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/returnMedicine',
+          name: '申请退药',
+          component: ReturnMedicine,
           meta: {requireAuth: true}
         }
         /** **********************/
