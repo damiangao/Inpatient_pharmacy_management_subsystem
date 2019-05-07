@@ -14,6 +14,7 @@ import InStock from '@/components/InStock'
 import AllocateCtrl from '@/components/AllocateCtrl'
 import ApplyMedicine from '@/components/ApplyMedicine'
 import ReturnMedicine from '@/components/ReturnMedicine'
+import MedicationHistoryList from '@/components/MedicationHistoryList'
 
 Vue.use(Router)
 
@@ -67,6 +68,12 @@ export default new Router({
           meta: {requireAuth: true},
           children: []
         },
+        {
+          path: '/medicationHistoryList',
+          name: 'MedicationHistoryList',
+          component: MedicationHistoryList,
+          meta: {requireAuth: true},
+        },
         /** **** 路由在这里加******/
         {
           path: '/collectTag',
@@ -90,7 +97,7 @@ export default new Router({
           path: '/allocateCtrl',
           name: '调拨控制',
           component: AllocateCtrl,
-          meta: {requireAuth: true},
+          meta: {requireAuth: true}
         },
         {
           path: '/applyMedicine',

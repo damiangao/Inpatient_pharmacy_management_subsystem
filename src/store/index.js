@@ -10,7 +10,9 @@ export default new Vuex.Store({
     name: '',
     token: '',
     currentMedicationID: '',
-    medCurrentPage: 'list'
+    medCurrentPage: 'list',
+    currentHistoryID: '',
+    historyCurrentPage: 'list'
   },
   mutations: {
     set_token (state, token) {
@@ -48,6 +50,18 @@ export default new Vuex.Store({
     set_medCurrentPage (state, page) {
       state.medCurrentPage = page
       console.log('state.medCurrentPage:' + state.medCurrentPage)
+    },
+    set_currentHistoryID (state, ID) {
+      state.currentHistoryID = ID
+      console.log('state.token:' + state.currentHistoryID)
+    },
+    del_currentHistoryID (state) {
+      state.currentHistoryID = ''
+      console.log('state.token:' + state.currentHistoryID)
+    },
+    set_historyCurrentPage (state, page) {
+      state.historyCurrentPage = page
+      console.log('state.historyCurrentPage:' + state.historyCurrentPage)
     }
   }
 })

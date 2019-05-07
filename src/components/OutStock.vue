@@ -7,10 +7,10 @@
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
       <el-col :span="12">
         <el-form-item label="出库单位" prop="out">
-          <!--<el-input :value="this.$store.state.userDept" disabled></el-input>-->
-          <el-select v-model="form.out" class="el-input" filterable>
+          <el-input :value="this.$store.state.userDept" disabled></el-input>
+<!--          <el-select v-model="form.out" class="el-input" filterable>
             <el-option v-for="item in outDept" :key="item.deptId" :value="item.deptId" :label="item.name"></el-option>
-          </el-select>
+          </el-select>-->
         </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -23,7 +23,7 @@
       <el-form ref="item" :model="item" label-width="80px" :rules="rules">
         <el-col :span="10">
           <el-form-item label="ID" prop="id">
-            <el-input v-model.number="item.id"></el-input>
+            <el-input v-model.number="item.id" @keyup.enter.native.prevent="searchItem"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -38,7 +38,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label='数量' prop="num">
-            <el-input v-model.number="item.num"></el-input>
+            <el-input v-model.number="item.num" ref="number" @keyup.enter.native.prevent="addItem"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="5">
@@ -98,7 +98,7 @@ export default {
     return {
       isSearching: false,
       form: {
-        out: '',
+        out: this.$store.state.userDeptID,
         in: '',
         itemList: ''
       },
@@ -135,7 +135,7 @@ export default {
         .post('/stockout/add', this.form)
         .then(res => {
           if (res.data.status === 'success') {
-            this.$message.success(res.data)
+            this.$message.success(res.data.data)
           }
         })
         .catch(err => console.log(err))
@@ -192,6 +192,7 @@ export default {
             this.item.num = 0
           }
           this.isSearching = false
+          this.$refs.number.focus()
         })
         .catch(err => {
           console.log(err)
@@ -214,10 +215,10 @@ export default {
       .get('/stockout/deptlist')
       .then((res) => { this.inList = res.data.data })
       .catch(err => console.log(err))
-    this.$axios
+    /* this.$axios
       .get('/stockout/deptlist')
       .then((res) => { this.outDept = res.data.data })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err)) */
   }
 }
 </script>

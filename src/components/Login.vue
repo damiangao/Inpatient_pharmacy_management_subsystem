@@ -66,6 +66,8 @@ export default {
               if (data.status === 'success') { // 登录成功关闭模态窗口
                 this.$store.commit('set_token', data.data.token)
                 this.$store.commit('set_name', data.data.name)
+                this.$store.commit('set_userDept', data.data.dept.name)
+                this.$store.commit('set_userDeptID', data.data.dept.deptId)
 
                 if (this.$store.state.token) {
                   this.$router.push('/home')
@@ -95,7 +97,7 @@ export default {
       this.$store.commit('set_token', 'nooooooob')
       this.$store.commit('set_name', 'lyf')
       this.$store.commit('set_userDept', 'nothing')
-      this.$store.commit('set_userDeptID', '114514')
+      this.$store.commit('set_userDeptID', '7355608')
       if (this.$store.state.token) {
         this.$router.push('/home')
       } else {
