@@ -7,22 +7,34 @@
           <i class="ele-icon-my-zhuye"></i>
           <span slot="title">首页</span>
         </el-menu-item>
+<!--        <el-submenu index="2-信息维护">-->
+<!--          <template slot="title">-->
+<!--            <i class="ele-icon-my-liebiao"></i>-->
+<!--            <span>信息维护</span>-->
+<!--          </template>-->
+<!--          <el-menu-item index="medicationListManagement">摆药单维护</el-menu-item>-->
+<!--          <el-menu-item index="1-1-2" route="test2">摆药台维护</el-menu-item>-->
+<!--        </el-submenu>-->
         <el-submenu index="2-信息维护">
           <template slot="title">
             <i class="ele-icon-my-liebiao"></i>
             <span>信息维护</span>
           </template>
           <el-menu-item index="medicationListManagement">摆药单维护</el-menu-item>
-          <el-menu-item index="1-1-2" route="test2">摆药台维护</el-menu-item>
+<!--          <el-menu-item index="1-1-2" route="test2">摆药台维护</el-menu-item>-->
         </el-submenu>
-        <el-submenu index="3-摆药退药">
-          <template slot="title">
-            <i class="ele-icon-my-guahao"></i>
-            <span>摆药退药</span>
-          </template>
-          <el-menu-item index="摆药">摆药</el-menu-item>
-          <el-menu-item index="returnDrug">退药</el-menu-item>
-        </el-submenu>
+<!--        <el-submenu index="3-摆药退药">-->
+<!--          <template slot="title">-->
+<!--            <i class="ele-icon-my-guahao"></i>-->
+<!--            <span>退药</span>-->
+<!--          </template>-->
+<!--          <el-menu-item index="摆药">摆药</el-menu-item>-->
+<!--          <el-menu-item index="returnDrug">退药</el-menu-item>-->
+<!--        </el-submenu>-->
+        <el-menu-item index="3-退药" route="returnDrug">
+          <i class="ele-icon-my-guahao"></i>
+          <span slot="title">退药管理</span>
+        </el-menu-item>
         <el-menu-item index="4-配置系统" route="CollectTag">
           <i class="ele-icon-my-gongneng"></i>
           <span slot="title">配置系统</span>
