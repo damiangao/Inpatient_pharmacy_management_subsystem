@@ -17,6 +17,7 @@ import ReturnMedicine from '@/components/ReturnMedicine'
 import StatCheckListCtrl from '@/components/StatCheckListCtrl'
 import MedicationHistoryList from '@/components/MedicationHistoryList'
 import Collect from '@/components/Collect'
+import Workload from '@/components/Workload'
 Vue.use(Router)
 
 export default new Router({
@@ -129,6 +130,12 @@ export default new Router({
           path: '/returnMedicine',
           name: '申请退药',
           component: ReturnMedicine,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/workload',
+          name: '工作量',
+          component: Workload,
           meta: {requireAuth: true}
         }
         /** **********************/

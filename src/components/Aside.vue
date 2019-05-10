@@ -32,7 +32,7 @@
             <i class="ele-icon-my-fangdajing"></i>
             <span>统计查询</span>
           </template>
-          <el-menu-item index="工作量">工作量统计</el-menu-item>
+          <el-menu-item index="workload">工作量统计</el-menu-item>
           <el-menu-item index="盘点" route="statCheckListCtrl">药房盘点</el-menu-item>
           <el-menu-item index="medicationHistoryList">摆药单历史</el-menu-item>
         </el-submenu>
