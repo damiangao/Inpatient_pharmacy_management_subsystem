@@ -23,7 +23,7 @@
           <el-menu-item index="摆药">摆药</el-menu-item>
           <el-menu-item index="returnDrug">退药</el-menu-item>
         </el-submenu>
-        <el-menu-item index="4-配置系统" route="test2">
+        <el-menu-item index="4-配置系统" route="CollectTag">
           <i class="ele-icon-my-gongneng"></i>
           <span slot="title">配置系统</span>
         </el-menu-item>

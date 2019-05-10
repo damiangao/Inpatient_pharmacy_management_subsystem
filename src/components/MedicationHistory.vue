@@ -27,6 +27,7 @@
                     min-width="120">
                 <template slot-scope="scope">
                     <el-button @click.native.prevent="showDetail(scope.$index)" type="text" size="small">查看</el-button>
+                    <el-button @click.native.prevent="returnDrug(scope.$index)" type="text" size="small">退药</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -58,6 +59,11 @@ export default {
       let ID = this.medicationLists[index].id
       this.$store.commit('set_currentHistoryID', ID)
       this.$store.commit('set_historyCurrentPage', 'detail')
+    },
+    returnDrug: function (index) {
+      let ID = this.medicationLists[index].id
+      this.$store.commit('set_currentHistoryID', ID)
+      this.$store.commit('set_historyCurrentPage', 'return')
     },
     handleCurrentChange: function (index) {
       console.log('当前页：' + index)

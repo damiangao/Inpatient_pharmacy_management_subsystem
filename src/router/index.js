@@ -15,7 +15,7 @@ import AllocateCtrl from '@/components/AllocateCtrl'
 import ApplyMedicine from '@/components/ApplyMedicine'
 import ReturnMedicine from '@/components/ReturnMedicine'
 import MedicationHistoryList from '@/components/MedicationHistoryList'
-
+import Collect from '@/components/Collect'
 Vue.use(Router)
 
 export default new Router({
@@ -72,13 +72,19 @@ export default new Router({
           path: '/medicationHistoryList',
           name: 'MedicationHistoryList',
           component: MedicationHistoryList,
-          meta: {requireAuth: true},
+          meta: {requireAuth: true}
         },
         /** **** 路由在这里加******/
         {
           path: '/collectTag',
           name: 'CollectTag',
           component: CollectTag,
+          meta: {requireAuth: true}
+        },
+        {
+          path: '/collect/:id',
+          name: 'Collect',
+          component: Collect,
           meta: {requireAuth: true}
         },
         {

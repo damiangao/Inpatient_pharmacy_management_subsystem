@@ -1,197 +1,126 @@
 <template>
-  <div class="boxShadow">
-    <div>
-      <el-button type="primary" round @click="collect">采集配置数据</el-button>
-      <el-button type="primary" round @click="confirm1">摆药核准确认</el-button>
-    </div>
-    <div style="margin-top: 0;">医嘱药品信息
-      <el-table
-        :data="tables1"
-        height="300px"
-        tooltip-effect="dark"
-        style="width: 100%"
-        @selection-change='selectArInfo' header-cell-class-name="cell">
-        <el-table-column :label="ID" style="align-items: center" >
-          <el-table-column label="序号" width="200px" type="index">
-          </el-table-column>
-          <template v-for='(col) in tableData1'>
-            <el-table-column
-              sortable
-              :show-overflow-tooltip="true"
-              :prop="col.dataItem"
-              :label="col.dataName"
-              :key="col.dataItem"
-              width="167%">
-            </el-table-column>
+  <el-container direction="vertical">
+    <h2>医嘱列表</h2>
+    <el-table
+      :data="DoctorOrderList"
+      style="width: 100%"
+      max-height="675"
+      stripe
+      border>
 
-          </template>
-        </el-table-column>
-
-      </el-table>
-
-    </div>
-    <div style="margin-top: 0">摆药单
-      <el-table
-        :data="tables3"
-        height="300px"
-        tooltip-effect="dark"
-        style="width: 100%"
-        @selection-change='selectArInfo' header-cell-class-name="cell">
-        <el-table-column label="摆药单ID" >
-          <el-table-column label="序号" width="200px" type="index">
-          </el-table-column>
-          <template v-for='(col) in tableData3'>
-            <el-table-column
-              sortable
-              :show-overflow-tooltip="true"
-              :prop="col.dataItem"
-              :label="col.dataName"
-              :key="col.dataItem"
-              width="335%">
-            </el-table-column>
-
-          </template>
-        </el-table-column>
-
-      </el-table>
-
-    </div>
-    <div>
-      <el-button @click="print1">打印确认</el-button>
-    </div>
-  </div>
+      <el-table-column
+        prop="id"
+        label="医嘱ID"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="medicineUsed"
+        label="使用药品"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="totalBatch"
+        label="总计批次"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="currentBatch"
+        label="当前批次"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="doctorRemarks"
+        label="医生备注"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="doctorId"
+        label="医生id"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="patientId"
+        label="患者id"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        prop="remark"
+        label="备注"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        min-width="120">
+        <template slot-scope="scope">
+          <!--       //   <el-button @click.native.prevent="collect(scope.$index)" type="text" size="small">采集</el-button>-->
+          <el-button type="text" @click="collect(scope.$index)" >打印对应标签</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-container>
 
 </template>
 
 <script>
-
 export default {
 
-  name: 'TestPage1',
+  name: 'CollectTag',
   data () {
     return {
-      ID: 123456,
-      tables1: [{
-        yisheng: '465',
-        huanzhe: '4546',
-        yaopin: '123',
-        mingcheng: '123',
-        yongfa: '123',
-        yongliang: '123',
-        jiage: '123',
-        youxian: '11',
-        beizhu: '123'
-      }],
-      tableData1: [{
-        dataItem: 'yisheng',
-        dataName: '医生id'
+      DoctorOrderList: [{
+        id: 123
+
       },
       {
-        dataItem: 'huanzhe',
-        dataName: '患者id'
-      },
-      {
-        dataItem: 'yaopin',
-        dataName: '所用药品id'
-      },
-      {
-        dataItem: 'mingcheng',
-        dataName: '药品名称'
-      }, {
-        dataItem: 'yongfa',
-        dataName: '药品用法用量'
-      },
-      {
-        dataItem: 'jiage',
-        dataName: '价格'
-      }, {
-        dataItem: 'youxian',
-        dataName: '优先级'
-      }, {
-        dataItem: 'beizhu',
-        dataName: '备注'
-      }
-      ],
-      tableData3: [{
-        dataItem: 'yaopin',
-        dataName: '所用药品'
-      }, {
-        dataItem: 'yongfa',
-        dataName: '药品用法'
-      }, {
-        dataItem: 'yongliang',
-        dataName: '药品用量'
-      }, {
-        dataItem: 'beizhu',
-        dataName: '备注'
+        id: 123
+
       }
       ]
     }
   },
+  created: function () {
+    return this.$axios.post('/DoctorOrder/getList')
+      .then((res) => {
+        console.log(res)
+        let status = res.data.status
+        // console.log(status);
+        if (status === 'success') {
+          console.log('进入了成功提示代码段')
+          this.$message({
+            showClose: true,
+            message: '申请成功',
+            type: 'success'
+          })
+          this.DoctorOrderList = res.data.data
+        } else if (status === 'false') {
+          this.$message.error(JSON.stringify(res.data.data) + '已过期')
+        } else if (status === 'fail') {
+          this.$message.error(JSON.stringify(res.data.data) + '已过期')
+        }
+      })
+      .catch((error) => {
+        console.log('进入错误处理')
+        this.$message.error('lyfNB')
+      })
+  },
+
   methods: {
     // 获取表格选中时的数据
-    selectArInfo (val) {
-      this.selectArr = val
-    },
-    collect () {
-      return this.$axios.post('/account/collect', {
-        account: 1
-
-      })
-        .then((res) => {
-          let data = res.data
-          if (data.status === 'success') {
-            this.$message.success('采集成功')
-            this.tables1 = data
-          } else if (data.status === 'fail') {
-            this.$message.fail('采集失败')
+    collect (index) {
+      this.$confirm('确认采集, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '处理成功!'
+        })
+        this.$router.push({name: 'Collect',
+          params: {
+            id: this.DoctorOrderList[index].id
+            // id : this.id
           }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-
-      // this.tables1 = [{
-      //   yaopin: '456',
-      //   yongfa: '798',
-      //   yongliang: '9852',
-      //   jiage: '13213',
-      //   beizhu: '123'
-      // },
-      // {
-      //   yaopin: '456',
-      //   yongfa: 'xxxx',
-      //   yongliang: '9852',
-      //   jiage: '13213',
-      //   beizhu: '123'
-      // }]
-    },
-    confirm1 () {
-      this.$confirm('确认完成摆药操作, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '确认成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消成功！'
-        })
-      })
-    },
-    print1 () {
-      this.$confirm('确认无误将进行打印, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '打印成功!'
         })
       }).catch(() => {
         this.$message({
