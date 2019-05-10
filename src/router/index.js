@@ -14,6 +14,7 @@ import InStock from '@/components/InStock'
 import AllocateCtrl from '@/components/AllocateCtrl'
 import ApplyMedicine from '@/components/ApplyMedicine'
 import ReturnMedicine from '@/components/ReturnMedicine'
+import StatCheckListCtrl from '@/components/StatCheckListCtrl'
 import MedicationHistoryList from '@/components/MedicationHistoryList'
 import Collect from '@/components/Collect'
 Vue.use(Router)
@@ -62,9 +63,22 @@ export default new Router({
           meta: {requireAuth: true}
         },
         {
+          path: '/outStock',
+          name: 'OutStock',
+          component: OutStock,
+          meta: {requireAuth: true}
+        },
+        {
           path: '/medicationListManagement',
           name: 'MedicationListManagement',
           component: MedicationListManagement,
+          meta: {requireAuth: true},
+          children: []
+        },
+        {
+          path: '/statCheckListCtrl',
+          name: 'StatCheckListCtrl',
+          component: StatCheckListCtrl,
           meta: {requireAuth: true},
           children: []
         },

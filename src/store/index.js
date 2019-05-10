@@ -11,6 +11,8 @@ export default new Vuex.Store({
     token: '',
     currentMedicationID: '',
     medCurrentPage: 'list',
+    currentCheckListID: '',
+    checkCurrentPage: 'checkList',
     currentHistoryID: '',
     historyCurrentPage: 'list'
   },
@@ -62,6 +64,14 @@ export default new Vuex.Store({
     set_historyCurrentPage (state, page) {
       state.historyCurrentPage = page
       console.log('state.historyCurrentPage:' + state.historyCurrentPage)
+    },
+    set_checkCurrentPage(state, page){
+      state.checkCurrentPage = page
+      console.log('state.checkCurrentPage:' + state.checkCurrentPage)
+    },
+    set_currentCheckListID (state, ID) {
+      state.currentCheckListID = ID
+      console.log('state.token:' + state.currentCheckListID)
     }
   }
 })
