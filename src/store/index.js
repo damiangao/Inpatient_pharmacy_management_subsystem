@@ -14,7 +14,8 @@ export default new Vuex.Store({
     currentCheckListID: '',
     checkCurrentPage: 'checkList',
     currentHistoryID: '',
-    historyCurrentPage: 'list'
+    historyCurrentPage: 'list',
+    medicalOrderID: ''
   },
   mutations: {
     set_token (state, token) {
@@ -72,6 +73,14 @@ export default new Vuex.Store({
     set_currentCheckListID (state, ID) {
       state.currentCheckListID = ID
       console.log('state.token:' + state.currentCheckListID)
+    },
+    set_medicalOrderID (state, ID) {
+      state.medicalOrderID = ID
+      console.log('state.medicalOrderID:' + state.medicalOrderID)
+    },
+    del_medicalOrderID (state) {
+      state.medicalOrderID = ''
+      console.log('state.medicalOrderID:' + state.medicalOrderID)
     }
   }
 })

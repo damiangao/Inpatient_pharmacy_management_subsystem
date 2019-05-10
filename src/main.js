@@ -10,7 +10,7 @@ import './assets/icon/iconfont.css'
 import moment from 'moment'
 import axios from 'axios'
 import qs from 'qs'
-
+import Print from 'vue-print-nb'
 // 绑定
 Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
@@ -18,7 +18,7 @@ Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Vue.config.productionTip = false
 Vue.config.devtools = true
 Vue.use(ElementUI)
-
+Vue.use(Print)
 if (process.env.NODE_ENV === 'development') {
   //axios.defaults.baseURL = 'http://172.6.5.107:8090'
   // axios.defaults.baseURL = 'http://172.6.7.193:8090'

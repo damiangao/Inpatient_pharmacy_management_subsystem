@@ -56,7 +56,9 @@ export default {
   methods: {
     showDetail: function (index) {
       let ID = this.medicationLists[index].id
+      let curMedicalOrderId = this.medicationLists[index].medicalOrderId
       this.$store.commit('set_currentMedicationID', ID)
+      this.$store.commit('set_medicalOrderID', curMedicalOrderId)
       this.$store.commit('set_medCurrentPage', 'detail')
     },
     handleCurrentChange: function (index) {
