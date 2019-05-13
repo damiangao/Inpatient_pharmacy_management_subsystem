@@ -29,6 +29,7 @@
       </el-table-column>
     </el-table>
     <el-button type="primary" round @click="print1">确认打印</el-button>
+    <el-button type="primary" round @click="returnBack">返回</el-button>
   </el-form>
 </template>
 <script>
@@ -123,6 +124,9 @@ export default {
     //       this.$message.error('lyfNB')
     //     })
     // },
+    returnBack(){
+      this.$router.push({path: '/medicationHistoryList'})
+    },
     print1 () {
       return this.$axios.post('/refund/getTwo')
         .then((res) => {

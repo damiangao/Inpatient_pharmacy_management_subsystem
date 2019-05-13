@@ -23,7 +23,9 @@ if (process.env.NODE_ENV === 'development') {
   //axios.defaults.baseURL = 'http://172.6.5.107:8090'
   // axios.defaults.baseURL = 'http://172.6.7.193:8090'
 //  axios.defaults.baseURL = 'http://172.6.5.24:8090'
-  axios.defaults.baseURL = 'http://10.6.118.148:8090'
+  //  axios.defaults.baseURL = 'http://172.19.203.42:8090'
+  axios.defaults.baseURL = 'http://127.0.0.1:8090'
+
 }
 console.log(process.env.NODE_ENV)
 

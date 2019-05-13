@@ -56,7 +56,7 @@
         <div id="baiyaodan">
           <el-dialog
             :visible.sync="dialogVisible"
-            center="true">
+            :center="true">
             <el-container direction="vertical">
               <el-row :gutter="20">
                 <el-col :span="8" :offset="10"><h2>摆药单</h2></el-col>

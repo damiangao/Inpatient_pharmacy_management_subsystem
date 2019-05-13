@@ -97,7 +97,7 @@ export default new Router({
           meta: {requireAuth: true}
         },
         {
-          path: '/collect/:id',
+          path: '/collect',
           name: 'Collect',
           component: Collect,
           meta: {requireAuth: true}

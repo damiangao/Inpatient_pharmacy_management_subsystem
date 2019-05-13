@@ -20,12 +20,12 @@
       <el-table-column
         prop="drug.id"
         label="药品ID"
-        min-width="150">
+        min-width="50">
       </el-table-column>
       <el-table-column
         prop="drug.name"
         label="药品名称"
-        min-width="150">
+        min-width="80">
       </el-table-column>
       <el-table-column label="当前可退数量">
         <template slot-scope="scope">
@@ -42,12 +42,12 @@
       <el-table-column
         prop="drug.unit"
         label="单位"
-        min-width="150">
+        min-width="50">
       </el-table-column>
       <el-table-column
         prop="drug.price"
         label="单价"
-        min-width="150">
+        min-width="50">
       </el-table-column>
       <el-table-column
         prop="drug.description"
@@ -57,7 +57,7 @@
       <el-table-column
         prop="description"
         label="医嘱信息"
-        min-width="150">
+        min-width="50">
       </el-table-column>
     </el-table>
   </el-container>
@@ -104,36 +104,56 @@ export default {
       this.multipleSelection = val
     },
     check () {
-      let returnTable = { table: JSON.stringify(
-        this.multipleSelection.map(item => {
-          return {drugId: item.id - 3, num: item.currentNum, ID: this.currentMedicationID}
-        })
-      )}
-      console.log(returnTable)
-      return this.$axios.post('/refund/get', returnTable)
-        .then((res) => {
-          console.log(res)
-          let status = res.data.status
-          // console.log(status);
-          if (status === 'success1') {
-            console.log('进入了成功提示代码段')
+      var flag = 1;
+      if (this.multipleSelection.length != 0) {
+        for (var i in this.multipleSelection) {
+          if (this.multipleSelection[i].currentNum === 0) {
             this.$message({
               showClose: true,
-              message: '申请成功',
-              type: 'success'
-            })
-            this.$router.push('/ConfirmReturnDrug')
-            console.log('成功提示已执行')
-          } else if (status === 'false') {
-            this.$message.error('已过期,无法退药')
-          } else if (status === 'fail') {
-            this.$message.error('请选择')
+              message: '有药品申请数量为0，无法提交',
+              type: 'error'
+            });
+            flag = 0;
+            break;
           }
-        })
-        .catch((error) => {
-          console.log('进入错误处理')
-          this.$message.error('lyfNB')
-        })
+          //this.dialogTableVisible = true;
+        }
+
+      }
+      if(flag === 1){
+        let returnTable = {
+          table: JSON.stringify(
+            this.multipleSelection.map(item => {
+              return {drugId: item.id - 3, num: item.currentNum, ID: this.currentMedicationID}
+            })
+          )
+        }
+        console.log(returnTable)
+        return this.$axios.post('/refund/get', returnTable)
+          .then((res) => {
+            console.log(res)
+            let status = res.data.status
+            // console.log(status);
+            if (status === 'success1') {
+              console.log('进入了成功提示代码段')
+              this.$message({
+                showClose: true,
+                message: '申请成功',
+                type: 'success'
+              })
+              this.$router.push('/ConfirmReturnDrug')
+              console.log('成功提示已执行')
+            } else if (status === 'false') {
+              this.$message.error('已过期,无法退药')
+            } else if (status === 'fail') {
+              this.$message.error('请选择')
+            }
+          })
+          .catch((error) => {
+            console.log('进入错误处理')
+            this.$message.error('lyfNB')
+          })
+      }
     }
   }
 }

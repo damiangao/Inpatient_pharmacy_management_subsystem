@@ -31,10 +31,10 @@
 <!--          <el-menu-item index="摆药">摆药</el-menu-item>-->
 <!--          <el-menu-item index="returnDrug">退药</el-menu-item>-->
 <!--        </el-submenu>-->
-        <el-menu-item index="3-退药" route="returnDrug">
-          <i class="ele-icon-my-guahao"></i>
-          <span slot="title">退药管理</span>
-        </el-menu-item>
+<!--        <el-menu-item index="3-退药" route="returnDrug">-->
+<!--          <i class="ele-icon-my-guahao"></i>-->
+<!--          <span slot="title">退药管理</span>-->
+<!--        </el-menu-item>-->
         <el-menu-item index="4-配置系统" route="CollectTag">
           <i class="ele-icon-my-gongneng"></i>
           <span slot="title">配置系统</span>

@@ -1,7 +1,7 @@
 <template>
   <div class="boxShadow">
     <div style="margin-top: 0;">
-      <h2>医嘱药品信息</h2>
+      <h2>医嘱药品信息打印预览</h2>
       <el-table
         :data="tables1"
         height="500px"
@@ -25,6 +25,7 @@
       </el-table>
       <!--      <el-button type="primary" round @click="collect" :disabled= "T">采集配置数据</el-button>-->
       <el-button type="primary" round @click="confirm1" :disabled=T>打印确认</el-button>
+      <el-button type="primary" round @click="returnBack" :disabled=T>返回</el-button>
     </div>
   </div>
 
@@ -163,6 +164,9 @@ export default {
         message: '打印成功',
         type: 'success'
       })
+    },
+    returnBack(){
+      this.$router.push({path: '/collectTag'})
     }
   }
 }
